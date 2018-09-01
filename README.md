@@ -1,4 +1,4 @@
-Programming Inverstigations Blog
+Data Love Blog
 ===
 
-This blog is dedicated to different explorations on programming. It can be accessed at [https://romantsegelskyi.github.io/pi-blog](https://romantsegelskyi.github.io/pi-blog).
+This blog is dedicated to different data science topics. It can be accessed at [https://loopingleo.github.io/blog](https://loopingleo.github.io/blog).
