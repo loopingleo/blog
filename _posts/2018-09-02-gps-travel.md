@@ -125,7 +125,7 @@ gmap.draw("your_map_filename.html")  # saves to html file for display - open fil
 
 ```
 
-A nice and free alternative to Google Maps is [OpenStreetMap](https://www.openstreetmap.org/). You can use the Python package [folium](https://github.com/python-visualization/folium) which uses on [leaflet.js](https://leafletjs.com) and OpenStreetMap. Folium comes in handy if you want to use the final map and host it in your blog like I did [here](https://loopingleo.github.io/GPS-tracking/kyoto/).
+A nice and free alternative to Google Maps is [OpenStreetMap](https://www.openstreetmap.org/). You can use the Python package [folium](https://github.com/python-visualization/folium) which uses [leaflet.js](https://leafletjs.com) and OpenStreetMap. Folium comes in handy if you want to use the final map and host it in your blog like I did [here](https://loopingleo.github.io/GPS-tracking/kyoto/).
 
 In case you want to go with folium, let us have a look at the code for that:
 
