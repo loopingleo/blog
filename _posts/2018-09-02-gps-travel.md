@@ -3,6 +3,7 @@ layout: post
 title: Tracking your travel adventures using GPS data from your phone and Python/folium
 comments: True
 ---
+
 Having a visual GPS log of your trips to foreign places can be very beneficial for telling your friends and family a cool story about your adventures. I recently started tracking my location and other data such as accelerometer with the iOS app ['SensorLog'](https://itunes.apple.com/us/app/sensorlog/id388014573?mt=8) to visualise it using Python/R scripts. In this blog post I will briefly guide you through setting up the GPS tracking on your phone and how you can create beautiful maps with your data.
 
 ![demo.png](https://raw.githubusercontent.com/loopingleo/blog/master/images/Screenshot%202018-09-03%2001.05.12.png)
@@ -13,28 +14,11 @@ GPS data logging with your smartphone
 
 [SensorLog](https://itunes.apple.com/us/app/sensorlog/id388014573?mt=8) is a great app for iOS devices to record all your phone's sensor data. You can simply let the app run in the background -- whether your hiking in New Zealand, enjoying Renaissance paintings in Rome or sipping Moscow Mules on a cruise ship.
 
-<!--
-Since there are many articles online about creating GitHub Pages, I will only write down simplified steps creating a personal page:
-
-1. Create a folder locally and initialize `git` repository in that folder by `git init`.
-2. Create a simple `index.html` and add it to the repo by `git add index.html`.
-3. Commit you changes by doing `git commit -m 'init'`.
-4. Create a remote repository on Github as described [here](https://help.github.com/articles/create-a-repo/). Name it `ANYNAME.github.io`.
-5. If needed setup `ssh` keys as described [here](https://help.github.com/articles/generating-ssh-keys/).
-6. Add remote repository to your local repository by `git add remote REMOTE_URL`. More detailed steps are can be found [here](https://help.github.com/articles/adding-an-existing-project-to-github-using-the-command-line/).
--->
 
 ### Transferring GPS logging data to your computer
 
 Once you recorded your sensor data, you can transfer it from your phone to your computer. Personally, I save these files using iCloud.
 
-<!--
-Here are some good websites :
-
-* [Html5up](https://html5up.net)
-* [WIX](http://www.wix.com/website/templates/html/personal/1)
-* [FreeWebTemplates](http://www.freewebtemplates.com/personal/)
--->
 
 ### Reading in the data in Python
 
@@ -112,7 +96,7 @@ There you go. Now your data is ready to be put on a map.
 
 
 
-Plotting GPS data on a map using folium
+Plotting GPS data on a map using folium or gmplot
 ---
 
 It is time to plot your GPS data on a map. If you have a Google Maps API key or you just want to print the Google maps on your local machine, you could use the following code:
@@ -169,16 +153,17 @@ map.save(filepath)
 
 ```
 
-![demo.png](https://raw.githubusercontent.com/loopingleo/blog/master/images/Screenshot%202018-09-03%2001.05.12.png)
+![demo.png](https://raw.githubusercontent.com/loopingleo/blog/master/images/Screenshot%202018-09-03%2001.22.22.png)
+
+Once you've got the feel for it, you can create maps like this one with larger datasets:
+
+![demo.png](https://raw.githubusercontent.com/loopingleo/blog/master/images/Screenshot%202018-09-03%2001.25.02.png)
 
 
-### Integrating blog as a part of original website
 
+### Now it's your turn
 
-Finally, to enable sharing on all of the pages of the blog add the include to `_layouts/default.html`:
+Finally, please let me know what kind of interesting plots you were able to create.
+Leave a comment below or send me an email. Thank you and happy coding.
 
-``` html
-{% include social.html %}
-```
-
-Also keep in mind that same as for comments, sharing can be turned off by setting `comments: False` in the YAML header of the post.
+Leo
