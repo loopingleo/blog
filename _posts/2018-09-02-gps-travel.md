@@ -5,6 +5,7 @@ comments: True
 ---
 Having a visual GPS log of your trips to foreign places can be very beneficial for telling your friends and family a cool story about your adventures. I recently started tracking my location and other data such as accelerometer with the iOS app ['SensorLog'](https://itunes.apple.com/us/app/sensorlog/id388014573?mt=8) to visualise it using Python/R scripts. In this blog post I will briefly guide you through setting up the GPS tracking on your phone and how you can create beautiful maps with your data.
 
+![demo.png](https://raw.githubusercontent.com/loopingleo/blog/master/images/Screenshot%202018-09-03%2001.05.12.png)
 
 
 GPS data logging with your smartphone
@@ -114,95 +115,65 @@ There you go. Now your data is ready to be put on a map.
 Plotting GPS data on a map using folium
 ---
 
-Recently I learned about [Jekyll](http://jekyllrb.com/) - static websites generator and for me it seemed like a great and simpler alternative to dynamic platform like Wordpress, Joomla, etc. Besides its simplicity, it makes backups so much easier and avoids most common security concerns caused by running dynamic websites. Jekyll allows to write posts in [Markdown](https://en.wikipedia.org/wiki/Markdown) which is another big plus. Moreover, code examples are very nicely embedded in the website. So combining with a fact that GitHub provides free hosting for Jekyll blogs, I was completely sold for it.
+It is time to plot your GPS data on a map. If you have a Google Maps API key or you just want to print the Google maps on your local machine, you could use the following code:
 
-### Poole
+``` python
 
-Even though setting up Jekyll is relatively easy, there exists a really nice repository - [poole](https://github.com/poole/poole) to simplify the process even more. Poole calls itself "the butler for Jekyll" and it indeed reduces the time spend to minutes. Of course the default design is no unique, but it allows to have a very quick start.
+## ---------- PLOT ON Google MAP  ----------------------------
+gmap = gmplot.GoogleMapPlotter(df_compressed.lat.mean(), df_compressed.lon.mean(), 14)
 
-![demo.png](https://camo.githubusercontent.com/913caa38048fb4c6ed8767ab206f02b3fbc10f40/68747470733a2f2f662e636c6f75642e6769746875622e636f6d2f6173736574732f39383638312f313833313232382f34326166366336612d373338342d313165332d393866622d6530623932336565303436382e706e67)
+#plot map circles in different sizes (and colors)
+for i in range(0,len(df_compressed)-1,20):
+    if abs(df_compressed.speed[i]) < 3/3.6:
+        gmap.circle(df_compressed['lat'][i], df_compressed['lon'][i],
+                    color="#f44242",
+                    marker=False,
+                    radius= 20 * (df_compressed["speed"][i])**(2),
+                    #radius = 10,
+                    ew = 0.3,
+                    face_alpha=0.8,
+                    )
+
+#gmap.scatter(df['Latitude'], df['Longitude'], df["markColScale"][i], size=0.5, marker=False)
+#gmap.heatmap(df_compressed['lat'], df_compressed['lon'], threshold=5, radius=40)
+
+gmap.draw("your_map_filename.html")  # saves to html file for display - open file in your browser
+
+```
+
+A nice and free alternative to Google Maps is [OpenStreetMap](https://www.openstreetmap.org/). You can use the Python package [folium](https://github.com/python-visualization/folium) which uses on [leaflet.js](https://leafletjs.com) and OpenStreetMap. Folium comes in handy if you want to use the final map and host it in your blog like I did [here](https://loopingleo.github.io/GPS-tracking/kyoto/).
+
+In case you want to go with folium, let us have a look at the code for that:
+
+
+``` python
+## ---------- PLOT ON OSM MAP with folium  ----------------------------
+
+locationlist = df_compressed[["lat","lon"]].dropna().values.tolist()
+map = folium.Map(location=[np.mean(df_compressed['lat']), np.mean(df_compressed['lon'])], zoom_start=7)
+
+for point in range(0, len(locationlist), 20):
+    if abs(df_compressed.speed[point]) < 3 / 3.6:
+        folium.Circle(locationlist[point], radius=1,#/(1+ (df_compressed["speed"][point])**(2)),
+                            color='#00d4ff', fill=True, fill_color ='#00d4ff', fill_opacity=0.2,
+                            stroke = True, weight = 0.1).add_to(map)
+
+folium.TileLayer('cartodbdark_matter').add_to(map)
+#folium.TileLayer('cartodbpositron').add_to(map)
+#folium.TileLayer('Stamen Toner').add_to(map)
+
+map
+
+filepath = 'your_map_filename.html'
+map.save(filepath)
+
+```
+
+![demo.png](https://raw.githubusercontent.com/loopingleo/blog/master/images/Screenshot%202018-09-03%2001.05.12.png)
 
 
 ### Integrating blog as a part of original website
 
-After you clone the poole repository, it's time to link it to your page. For that just edit `_config.yml`:
-
-``` YAML
-# Setup
-title:               Your Blog Titme
-tagline:             ''
-description:         ''
-home:                http://username.github.io
-url:                 http://username.github.io/blog_name
-baseurl:             /blog_name
-paginate:            5
-paginate_path:       "/page:num/"
-exclude:             ['posts']
-```
-
-Push the changes to your repository and you will be able to see the blog under `%USERNAME%.github.io/blog_name`
-
-### Comments
-
-One of the main things that I was concerned about when creating static blog is having comments functionality. But [Disquis](https://disqus.com/) seems to solve that problem very well. Create a file `_includes/comments.html` which includes the code provided by Disqus after registration. After that add modify the file `_layouts/default.html` to include the line:
-
-``` html
-{% include comments.html %}
-```
-
-Setting the comments this way allows easy enabling/disabling of comments on a page-by-page basis. All you need have to do is set `comments: True` in the YAML header of the post.
-
-### Analytics
-
-Adding Google Analytics to the blog is similar to adding comments. First, create another account through Google Analytics Admin section as you did for peronal page. Google will give you the javascript tracking code to embed on every website, which you should put in `_includes/google_analytics.html`. Finally, to enable analytics on all of the pages of the blog add the include to `_layouts/default.html`:
-
-``` html
-{% include google_analytics.html %}
-```
-
-### Social Buttons
-
-There are different options for ways to adding sharing buttons to you blog (for example [this](https://github.com/carrot/share-button) and [this](https://github.com/lipis/bootstrap-social)), but after some searching, I went for simplicity described in this [article](http://codingtips.kanishkkunal.in/share-buttons-jekyll/) on [CodingTips blog](http://codingtips.kanishkkunal.in/). I would encourage reading an original article, but I also wanted to provide here the summary.
-
-As in other steps, create `_includes/share.html` with following contents:
-
-``` html
-<div class="share-page">
-    Share this on &rarr;
-    <a href="https://twitter.com/intent/tweet?text={{ page.title }}&url={{ site.url }}{{ page.url }}&via={{ site.twitter_username }}&related={{ site.twitter_username }}" rel="nofollow" target="_blank" title="Share on Twitter">Twitter</a>
-    <a href="https://facebook.com/sharer.php?u={{ site.url }}{{ page.url }}" rel="nofollow" target="_blank" title="Share on Facebook">Facebook</a>
-    <a href="https://plus.google.com/share?url={{ site.url }}{{ page.url }}" rel="nofollow" target="_blank" title="Share on Google+">Google+</a>
-</div>
-```
-
-Next add this to `css/_share.scss`:
-
-``` css
-.share-page {
-    text-align: center;
-    background: $secondary-color;
-    color: $light-color;
-    padding: 8px 15px;
-    border-radius: 5px;
-    margin: 1.5 * $spacing-unit 0;
-
-    a {
-        font-weight: 700;
-        color: #fff;
-        margin-left: 10px;
-
-        &:hover {
-            border-bottom: 1px dashed #fff;
-        }
-    }
-}
-```
-
-And and import in `styles.scss`:
-
-``` css
-@import "share";
-```
 
 Finally, to enable sharing on all of the pages of the blog add the include to `_layouts/default.html`:
 
@@ -211,15 +182,3 @@ Finally, to enable sharing on all of the pages of the blog add the include to `_
 ```
 
 Also keep in mind that same as for comments, sharing can be turned off by setting `comments: False` in the YAML header of the post.
-
-### Basic SEO
-
-To improve search engine recognition of the blog, it's good idea to creat `sitemap.xml`. You can either create one by hand or [use the one automatically generated by GitHub](You can have one automatically generated by GitHub Pages. See this one I use for my site). Mine can be viewed [here]().
-
-### Interesting deployment systems
-
-While setting up personal page and a blog already give a boost in productivity, there are deployment systems that make the process even more efficient:
-
-* [R + knitr](http://kevinushey.github.io/blog/2015/01/03/first-post/). R is a great language primarily used by statisticians and one of it's amazing features is a great support for generating reports using [knitr](http://yihui.name/knitr/). It the linked blog post the author describes blogging using R stack which might be very useful for data analysis related posts.
-
-* [Python + Pweave](http://iaingallagher.tumblr.com/post/41359279059/python-pweave-and-pandoc-howto). Similar to `R + knitr`, [Pweave](http://mpastell.com/pweave/) for `Python` provides an interesting system for generating `markdown` and `html` while embadding code.
