@@ -3,18 +3,14 @@ layout: post
 title: Tracking your travel adventures using GPS data from your phone and Python/folium
 comments: True
 ---
-<!--
-Having a personal webpage and blog can be very beneficial for a developer. I recently decided to create my own page and a blog and felt that some guide with the problem I faced and how I solved them would be useful. This guide is meant to help people that are familiar with what Git and Github is to get up and running with GitHub Pages and Jekyll in an just couple of hours.
--->
-
-Having a visual GPS log of your trips to foreign places can be very beneficial for telling your friends and family a cool story about your adventures. I recently started tracking my location and other data such as accelerometer with the iOS app 'SensorLog' to visualise it using Python/R scripts. In this blog post I will briefly guide you through setting up the GPS tracking on your phone and how you can create beautiful maps with your data.
+Having a visual GPS log of your trips to foreign places can be very beneficial for telling your friends and family a cool story about your adventures. I recently started tracking my location and other data such as accelerometer with the iOS app ['SensorLog'](https://itunes.apple.com/us/app/sensorlog/id388014573?mt=8) to visualise it using Python/R scripts. In this blog post I will briefly guide you through setting up the GPS tracking on your phone and how you can create beautiful maps with your data.
 
 
 
 GPS data logging with your smartphone
 ---
 
-[SensorLog](https://itunes.apple.com/us/app/sensorlog/id388014573?mt=8) is a great app for iOS devices to record all your phone's sensor data. [SensorLog](https://itunes.apple.com/us/app/sensorlog/id388014573?mt=8) can simply let the app run in the background whether your hiking in New Zealand, enjoying Renaissance paintings in Rome or sipping Moscow Mules on a cruise ship.
+[SensorLog](https://itunes.apple.com/us/app/sensorlog/id388014573?mt=8) is a great app for iOS devices to record all your phone's sensor data. You can simply let the app run in the background -- whether your hiking in New Zealand, enjoying Renaissance paintings in Rome or sipping Moscow Mules on a cruise ship.
 
 <!--
 Since there are many articles online about creating GitHub Pages, I will only write down simplified steps creating a personal page:
@@ -41,7 +37,7 @@ Here are some good websites :
 
 ### Reading in the data in Python
 
-In case you love statistics or just curious if anyone visit you website, adding something to track visitor seems like a good idea. My choice was [Google Analytics](http://www.google.com/analytics/) since it's relative simple and works great. To add analytics support go to Admin tab and create new account. After you enter all the needed information and accept the agreements, you will get tracking code, something like this:
+Reading in your sensor data into Python is easy. My choice for this use case is pandas and locally stored files since it's relatively simple and it works great. You can read single files. But in my case I had been tracking my location for many days and had multiple files ready to be visualised in my iCloud. Let's have a look how this works:
 
 ``` python
 import os, glob
@@ -63,9 +59,59 @@ for file_ in allFiles:
 df_sensorData = pd.concat(list_, sort=True)
 ```
 
-Insert this code anywhere at your index.html page and data will get automatically uploaded to analytics.
+Once you've read in the file, you can have a brief look at the data:
 
-Linking a blog to the personal page
+
+``` python
+df_sensorData.info()
+with pd.option_context('display.max_rows', 1, 'display.max_columns', None):
+    print(df_sensorData)
+```
+
+Or you could do some simple plotting with matplotlib.pyplot.
+
+
+Once you have had a first look at the data, you can decide which variables are most important to you. In this example, I selected the following columns from my pandas DataFrame and shortened the column names for easier handling:
+
+``` python
+# select relevant columns
+df_compressed = df_sensorData[["loggingTime(txt)",
+                               "locationTimestamp_since1970(s)",
+                               "loggingSample(N)",
+                               "locationLatitude(WGS84)",
+                               "locationLongitude(WGS84)",
+                               "locationAltitude(m)",
+                               "locationSpeed(m/s)",
+                               "accelerometerTimestamp_sinceReboot(s)",
+                               "accelerometerAccelerationX(G)",
+                               "accelerometerAccelerationY(G)",
+                               "accelerometerAccelerationZ(G)",
+                               "gyroRotationX(rad/s)",
+                               "gyroRotationY(rad/s)",
+                               "gyroRotationZ(rad/s)"]]
+
+# shorten names of columns
+df_compressed = df_compressed.rename(index=str, columns={"loggingTime(txt)":"time",
+                               "locationTimestamp_since1970(s)":"time_s1970",
+                               "loggingSample(N)":"sample_ind",
+                               "locationLatitude(WGS84)":"lat",
+                               "locationLongitude(WGS84)":"lon",
+                               "locationAltitude(m)":"altitude",
+                               "locationSpeed(m/s)":"speed",
+                               "accelerometerTimestamp_sinceReboot(s)":"accel_time",
+                               "accelerometerAccelerationX(G)":"x",
+                               "accelerometerAccelerationY(G)":"y",
+                               "accelerometerAccelerationZ(G)":"z",
+                               "gyroRotationX(rad/s)":"Xgyro",
+                               "gyroRotationY(rad/s)":"Ygyro",
+                               "gyroRotationZ(rad/s)":"Zgyro"})
+```
+
+There you go. Now your data is ready to be put on a map.
+
+
+
+Plotting GPS data on a map using folium
 ---
 
 Recently I learned about [Jekyll](http://jekyllrb.com/) - static websites generator and for me it seemed like a great and simpler alternative to dynamic platform like Wordpress, Joomla, etc. Besides its simplicity, it makes backups so much easier and avoids most common security concerns caused by running dynamic websites. Jekyll allows to write posts in [Markdown](https://en.wikipedia.org/wiki/Markdown) which is another big plus. Moreover, code examples are very nicely embedded in the website. So combining with a fact that GitHub provides free hosting for Jekyll blogs, I was completely sold for it.
