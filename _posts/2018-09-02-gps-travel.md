@@ -102,7 +102,6 @@ Plotting GPS data on a map using folium or gmplot
 It is time to plot your GPS data on a map. If you have a Google Maps API key or you just want to print the Google maps on your local machine, you could use the following code:
 
 ``` python
-
 ## ---------- PLOT ON Google MAP  ----------------------------
 gmap = gmplot.GoogleMapPlotter(df_compressed.lat.mean(), df_compressed.lon.mean(), 14)
 
@@ -122,7 +121,6 @@ for i in range(0,len(df_compressed)-1,20):
 #gmap.heatmap(df_compressed['lat'], df_compressed['lon'], threshold=5, radius=40)
 
 gmap.draw("your_map_filename.html")  # saves to html file for display - open file in your browser
-
 ```
 
 A nice and free alternative to Google Maps is [OpenStreetMap](https://www.openstreetmap.org/). You can use the Python package [folium](https://github.com/python-visualization/folium) which uses [leaflet.js](https://leafletjs.com) and OpenStreetMap. Folium comes in handy if you want to use the final map and host it in your blog like I did [here](https://loopingleo.github.io/GPS-tracking/kyoto/).
@@ -150,7 +148,6 @@ map
 
 filepath = 'your_map_filename.html'
 map.save(filepath)
-
 ```
 
 ![demo.png](https://raw.githubusercontent.com/loopingleo/blog/master/images/Screenshot%202018-09-03%2001.22.22.png)
