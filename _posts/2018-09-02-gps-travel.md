@@ -6,7 +6,7 @@ comments: True
 
 Having a visual GPS log of your trips to foreign places can be very beneficial for telling your friends and family a cool story about your adventures. I recently started tracking my location and other data such as accelerometer with the iOS app ['SensorLog'](https://itunes.apple.com/us/app/sensorlog/id388014573?mt=8) to visualise it using Python/R scripts. In this blog post I will briefly guide you through setting up the GPS tracking on your phone and how you can create beautiful maps with your data.
 
-<a href="https://raw.githubusercontent.com/loopingleo/blog/master/images/Screenshot%202018-09-03%2001.05.12.png" rel="folium map">![demo.png](https://raw.githubusercontent.com/loopingleo/blog/master/images/Screenshot%202018-09-03%2001.05.12.png)</a>
+<a href="https://loopingleo.github.io/GPS-tracking/kyoto/" rel="folium map">![demo.png](https://raw.githubusercontent.com/loopingleo/blog/master/images/Screenshot%202018-09-03%2001.05.12.png)</a>
 
 
 GPS data logging with your smartphone
@@ -150,11 +150,11 @@ filepath = 'your_map_filename.html'
 map.save(filepath)
 ```
 
-![demo.png](https://raw.githubusercontent.com/loopingleo/blog/master/images/Screenshot%202018-09-03%2001.22.22.png)
+<a href="https://loopingleo.github.io/GPS-tracking/kyoto/" rel="folium map">![demo.png](https://raw.githubusercontent.com/loopingleo/blog/master/images/Screenshot%202018-09-03%2001.22.22.png)</a>
 
 Once you've got the feel for it, you can create maps like this one with larger datasets:
 
-![demo.png](https://raw.githubusercontent.com/loopingleo/blog/master/images/Screenshot%202018-09-03%2001.25.02.png)
+<a href="https://raw.githubusercontent.com/loopingleo/blog/master/images/Screenshot%202018-09-03%2001.25.02.png" rel="folium map">![demo.png](https://raw.githubusercontent.com/loopingleo/blog/master/images/Screenshot%202018-09-03%2001.25.02.png)</a>
 
 You can find the complete code in my [GitHub repo 'GPS-tracking'](https://github.com/loopingleo/GPS-tracking)
 
