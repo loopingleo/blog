@@ -15,8 +15,8 @@ GPS data logging with your smartphone
 [SensorLog](https://itunes.apple.com/us/app/sensorlog/id388014573?mt=8) is a great app for iOS devices to record all your phone's sensor data. You can simply let the app run in the background -- whether your hiking in New Zealand, enjoying Renaissance paintings in Rome or sipping Moscow Mules on a cruise ship.
 
 <p float="left">
-  <img src="https://raw.githubusercontent.com/loopingleo/blog/master/images/IMG_9662.JPG" width="150" />
-  <img src="/images/IMG_9663.JPG" width="150" />
+  <img src="https://raw.githubusercontent.com/loopingleo/blog/master/images/IMG_9662.JPG" width="300" />
+  <img src="https://raw.githubusercontent.com/loopingleo/blog/master/images/IMG_9663.JPG" width="300" />
 </p>
 
 <!--
