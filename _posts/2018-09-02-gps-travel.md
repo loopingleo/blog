@@ -14,7 +14,7 @@ GPS data logging with your smartphone
 
 [SensorLog](https://itunes.apple.com/us/app/sensorlog/id388014573?mt=8) is a great app for iOS devices to record all your phone's sensor data. You can simply let the app run in the background -- whether your hiking in New Zealand, enjoying Renaissance paintings in Rome or sipping Moscow Mules on a cruise ship.
 
-![SensorLog-1](https://raw.githubusercontent.com/loopingleo/blog/master/images/Screenshot%202018-09-03%2023.31.12.png)
+<a href="https://itunes.apple.com/us/app/sensorlog/id388014573?mt=8" rel="folium map">![SensorLog-1](https://raw.githubusercontent.com/loopingleo/blog/master/images/Screenshot%202018-09-03%2023.31.12.png)</a>
 
 <!--
 <img align='left' src="https://raw.githubusercontent.com/loopingleo/blog/master/images/IMG_9662.JPG" width="300" />
@@ -26,14 +26,16 @@ GPS data logging with your smartphone
 ![SensorLog-1](https://raw.githubusercontent.com/loopingleo/blog/master/images/IMG_9662.JPG =200x) ![SensorLog-2](https://raw.githubusercontent.com/loopingleo/blog/master/images/IMG_9663.JPG =200x)
 -->
 
+
 ### Transferring GPS logging data to your computer
 
-Once you recorded your sensor data, you can transfer it from your phone to your computer. Personally, I save these files using iCloud.
+Once you recorded your sensor data, you can transfer it from your phone to your computer. Personally, I store these files in my iCloud. You can find great tips on that on Apple's [support site](https://support.apple.com/en-us/HT206481).
 
 
 ### Reading in the data in Python
 
-Reading in your sensor data into Python is easy. My choice for this use case is pandas and locally stored files since it's relatively simple and it works great. You can read single files. But in my case I had been tracking my location for many days and had multiple files ready to be visualised in my iCloud. Let's have a look how this works:
+Reading in your sensor data into Python is easy.
+My choice for this use case is the famous [pandas](https://pandas.pydata.org) package and locally stored files since it's relatively simple and it works great. You can read in single files. But in my case I had been tracking my location for many days and had multiple files ready to be visualised in my iCloud. Let us have a look how this works:
 
 ``` python
 import os, glob
@@ -87,7 +89,9 @@ df_compressed = df_sensorData[["loggingTime(txt)",
                                "gyroRotationZ(rad/s)"]]
 
 # shorten names of columns
-df_compressed = df_compressed.rename(index=str, columns={"loggingTime(txt)":"time",
+df_compressed = df_compressed.rename(index=str,
+                                    columns={
+                               "loggingTime(txt)":"time",
                                "locationTimestamp_since1970(s)":"time_s1970",
                                "loggingSample(N)":"sample_ind",
                                "locationLatitude(WGS84)":"lat",
@@ -173,7 +177,7 @@ You can find the complete code in my [GitHub repo 'GPS-tracking'](https://github
 
 ### Now it's your turn
 
-Finally, please let me know what kind of interesting plots you were able to create.
-Leave a comment below or send me an email. Thank you and happy coding.
+Finally, please let me know what kind of interesting plots you were able to create. Leave a comment below or send me an email.
+Thank you and happy coding.
 
-Leo
+loopingleo
