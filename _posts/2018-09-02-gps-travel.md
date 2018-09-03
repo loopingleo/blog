@@ -4,7 +4,7 @@ title: Tracking your travel adventures using GPS data from your phone and Python
 comments: True
 ---
 
-Having a visual GPS log of your trips to foreign places can be very beneficial for telling your friends and family a cool story about your adventures. I recently started tracking my location and other data such as accelerometer with the iOS app ['SensorLog'](https://itunes.apple.com/us/app/sensorlog/id388014573?mt=8) to visualise it using Python/R scripts. In this blog post I will briefly guide you through setting up the GPS tracking on your phone and how you can create beautiful maps with your data.
+Having a visual GPS log of your trips to foreign places can be fun way for telling your friends and family a visual story about your adventures. I recently started tracking my location and other data such as accelerometer with the iOS app ['SensorLog'](https://itunes.apple.com/us/app/sensorlog/id388014573?mt=8) to visualise it using Python/R scripts. In this blog post I will briefly guide you through setting up the GPS tracking on your phone and how you can create beautiful maps with your data.
 
 <a href="https://loopingleo.github.io/GPS-tracking/kyoto/" rel="folium map">![demo.png](https://raw.githubusercontent.com/loopingleo/blog/master/images/Screenshot%202018-09-03%2001.05.12.png)</a>
 
@@ -14,10 +14,9 @@ GPS data logging with your smartphone
 
 [SensorLog](https://itunes.apple.com/us/app/sensorlog/id388014573?mt=8) is a great app for iOS devices to record all your phone's sensor data. You can simply let the app run in the background -- whether your hiking in New Zealand, enjoying Renaissance paintings in Rome or sipping Moscow Mules on a cruise ship.
 
-<p float="left">
-  <img align='left' src="https://raw.githubusercontent.com/loopingleo/blog/master/images/IMG_9662.JPG" width="300" hspace="20" />
-  <img align='left' src="https://raw.githubusercontent.com/loopingleo/blog/master/images/IMG_9663.JPG" width="300" hspace="20" />
-</p>
+<img align='left' src="https://raw.githubusercontent.com/loopingleo/blog/master/images/IMG_9662.JPG" width="300" />
+<img align='left' src="https://raw.githubusercontent.com/loopingleo/blog/master/images/IMG_9663.JPG" width="300" />
+
 <br/>
 
 <!--
